@@ -28,11 +28,11 @@ export default async function Navbar() {
     return (
         <nav className="fixed inset-0 w-full h-fit bg-gradient-to-r from-purple-800 to-indigo-800 shadow-xl z-[999]">
             <div className="container mx-auto py-4 flex items-center justify-between px-5 lg:px-0">
-                <Link href="/" className="flex items-center justify-center space-x-4">
+                <Link href="/" className="flex items-center justify-center space-x-2">
                     <Image src={eGamesStoreIcon} alt="eGames store icon" height={40} width={40} />
                     <p className="font-semibold text-lg text-white">eGames store</p>
                 </Link>
-                <div className="flex items-center justify-center space-x-5">
+                <div className="flex items-center justify-center space-x-2 md:space-x-5">
                     {session ? (
                         <>
                             <NavbarNotificationMenu notificationsQuery={notificationsQuery} />

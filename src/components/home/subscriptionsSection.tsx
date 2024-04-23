@@ -16,7 +16,7 @@ export default async function SubscriptionsContainer() {
                 <MdPersonalVideo size={40} className="text-white ml-2" />
             </div>
             {subscriptionItems.length ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center">
                     {subscriptionItems.map((item, index) => (
                         <article key={index} className="flex flex-col items-center justify-center bg-gray-900 border rounded-lg border-gray-700 hover:shadow-lg transition duration-300 py-4">
                             {item.icon ? (

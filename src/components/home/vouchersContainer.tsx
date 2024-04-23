@@ -16,7 +16,7 @@ export default async function VouchersContainer() {
                 <BsFillTicketPerforatedFill size={40} className="text-white ml-2" />
             </div>
             {!!voucherItems.length ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center">
                     {voucherItems.map((item, index) => (
                         <article key={index} className="flex flex-col py-4 items-center justify-center bg-gray-900 border rounded-lg border-gray-700 hover:shadow-lg transition duration-300">
                             <BsFillTicketPerforatedFill size={60} className="text-gray-600 mb-2" />

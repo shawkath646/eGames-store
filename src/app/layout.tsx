@@ -11,13 +11,9 @@ export const metadata: Metadata = {
   title: "eGames store",
 };
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
 
-  const { ContentWrapper } = await SHAS();
+  const { ContentWrapper } = await SHAS({ imageOptimization: true });
 
   return (
     <html lang="en">

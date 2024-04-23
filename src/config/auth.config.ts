@@ -28,7 +28,6 @@ export const authConfig = {
                     token.firstName = given_name;
                     token.lastName = family_name;
                     token.role = existingUser.role;
-                    token.totalSpent = existingUser.totalSpent;
                     token.joinedOn = existingUser.joinedOn;
                     token.image = existingUser.image;
                 };
@@ -40,7 +39,6 @@ export const authConfig = {
             session.user.firstName = token.firstName as string;
             session.user.lastName = token.lastName as string;
             session.user.role = token.role as string;
-            session.user.totalSpent = token.totalSpent as number;
             session.user.joinedOn = token.joinedOn as Date;
             session.user.image = token.image as string;
             return session;

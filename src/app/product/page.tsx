@@ -23,8 +23,8 @@ export default async function Page({ searchParams } : { searchParams: { [key: st
     const { packages, product } = productData;
 
     return (
-        <main style={{ backgroundImage: `url(${darkBackground.src})` }} className="w-full text-white bg-gray-900 bg-cover bg-center bg-fixed pb-40">
-            <div className="container mx-auto pt-28 gap-5 px-5 lg:px-0">
+        <main style={{ backgroundImage: `url(${darkBackground.src})` }} className="w-full text-white bg-gray-900 bg-cover bg-center bg-fixed">
+            <div className="container mx-auto pt-28 pb-20 lg:pb-40 lg:pt-48 gap-5 px-5 lg:px-0">
                 <section className="flex justify-center space-x-8 max-w-xl">
                     <div className="bg-gray-800 rounded h-[80px] w-[80px] flex-shrink-0">
                         {product.icon ? (

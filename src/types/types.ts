@@ -1,3 +1,4 @@
+
 export interface TimestampFieldValue {
     _seconds: number;
     _nanoseconds: number;
@@ -18,7 +19,6 @@ export interface UserDataType {
     joinedOn: Date;
     password?: string;
     role: string;
-    totalSpent: number;
     image: string;
 }
 
@@ -49,35 +49,59 @@ export interface OrderItemType {
     timestamp: Date;
     price: number;
     paymentMethod: string;
-    accountLast4Digit: string;
-    transactionId: string;
+    accountLast4Digit?: string;
+    transactionId?: string;
+    voucherCode?: string;
     packageId: string;
     productType: string;
     docId: string;
-    status: "pending" | "recieved" | "cancelled" | "completed";
+    status: "pending" | "received" | "cancelled" | "completed" | "rejected";
+    details: string;
     orderBy: string;
 }
 
-export interface PlaceOrderType {
+export interface OrderBoxFormType {
     productType: string;
     packageId: string;
     docId: string;
     paymentMethod: string;
-    accountLast4Digit: string;
-    transactionId: string;
+    accountLast4Digit?: string;
+    transactionId?: string;
+    voucherCode?: string;
     productName: string;
-}
-
-export interface OrderResponseType {
-    status: boolean;
-    pageStatus?: string;
-    formStatus?: {
-        accountLast4Digit: string;
-        transactionId: string;
-    }
+    details: string;
 }
 
 export interface FetchedNotificationQuery {
     notifications: NotificationItemType[];
     unreadNotificationNumber: number;
+}
+
+export interface SiteDataType {
+    paymentAccountNumbers: {
+        [key: string]: string[];
+    }
+}
+
+export interface SignInFormType {
+    emailAddress: string;
+    password: string;
+    showPassword: boolean;
+}
+
+export interface PaymentMethodItem {
+    id: string;
+    name: string;
+    icon: string;
+    accounts: string[];
+}
+
+export interface VoucherItemData {
+    code: string;
+    id: string;
+    isUsed: boolean;
+    timestamp: Date;
+    validUntil: Date;
+    value: number;
+    createdBy: string;
 }

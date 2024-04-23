@@ -1,3 +1,4 @@
+"use server";
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '@/config/firebase.config';
 import { CreateUserType, UserDataType } from "@/types/types";
@@ -11,7 +12,6 @@ const createUser = async(userData: CreateUserType) => {
         email: userData.email,
         fullName: userData.name || "Untracked user",
         id: uuidv4(),
-        totalSpent: 0,
         image: userData.picture
     };
 
