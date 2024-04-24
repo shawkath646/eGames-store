@@ -27,7 +27,7 @@ export default async function OrderItem({ item }: { item: OrderItemType }) {
 
     return (
         <article className="border border-gray-300 p-4 mb-4 shadow-lg rounded-lg">
-            <table className="w-full mb-4 text-left capitalize table-auto">
+            <table className="w-full mb-4 text-left table-auto">
                 <tbody>
                     <tr className="border-b">
                         <th className="font-semibold py-3">Title</th>
@@ -37,7 +37,7 @@ export default async function OrderItem({ item }: { item: OrderItemType }) {
                     <tr className="border-b">
                         <th className="font-semibold py-3">Product Type</th>
                         <td className="px-2 py-3">:</td>
-                        <td className="py-3">{item.productType}</td>
+                        <td className="py-3 capitalize">{item.productType}</td>
                     </tr>
                     <tr className="border-b">
                         <th className="font-semibold py-3">Price</th>

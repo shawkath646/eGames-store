@@ -1,6 +1,6 @@
 "use client";
-import receivePayment from "@/actions/database/admin/receivePayment";
-import rejectPayment from "@/actions/database/admin/rejectPayment";
+import receivePayment from "@/actions/database/admin/payments/receivePayment";
+import rejectPayment from "@/actions/database/admin/payments/rejectPayment";
 
 export default function ButtonsContainer({ status, orderId }: { status: string; orderId: string }) {
     return (

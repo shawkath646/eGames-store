@@ -24,6 +24,7 @@
     "react-lottie-player": "^2.0.0",
     "react-slideshow-image": "^4.3.1",
     "shas-app-controller": "^1.2.3",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "uuid": "^9.0.1",
     "yup": "^1.4.0"
   },

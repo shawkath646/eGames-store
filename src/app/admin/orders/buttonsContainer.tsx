@@ -1,6 +1,6 @@
 "use client";
-import cancelOrder from "@/actions/database/admin/cancelOrder";
-import completeOrder from "@/actions/database/admin/completeOrder";
+import cancelOrder from "@/actions/database/admin/orders/cancelOrder";
+import completeOrder from "@/actions/database/admin/orders/completeOrder";
 
 export default function ButtonsContainer({ status, orderId }: { status: string; orderId: string }) {
     return (

@@ -77,10 +77,9 @@ export interface FetchedNotificationQuery {
     unreadNotificationNumber: number;
 }
 
+
 export interface SiteDataType {
-    paymentAccountNumbers: {
-        [key: string]: string[];
-    }
+    bannerImages: ImageObjectType[];
 }
 
 export interface SignInFormType {
@@ -89,14 +88,14 @@ export interface SignInFormType {
     showPassword: boolean;
 }
 
-export interface PaymentMethodItem {
+export interface PaymentMethodItemType {
     id: string;
     name: string;
     icon: string;
     accounts: string[];
 }
 
-export interface VoucherItemData {
+export interface VoucherItemType {
     code: string;
     id: string;
     isUsed: boolean;
@@ -104,4 +103,11 @@ export interface VoucherItemData {
     validUntil: Date;
     value: number;
     createdBy: string;
+}
+
+export interface ImageObjectType {
+    id: string;
+    src: string;
+    height: number;
+    width: number;
 }

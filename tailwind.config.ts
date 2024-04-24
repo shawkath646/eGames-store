@@ -17,6 +17,7 @@ const config: Config = {
   },
   plugins: [
     require('tailwindcss-aria-attributes'),
+    require('tailwind-scrollbar-hide')
   ],
 };
 export default config;

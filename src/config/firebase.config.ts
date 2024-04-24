@@ -22,6 +22,6 @@ const app = admin.apps.length ? admin.app() : admin.initializeApp({
 });
 
 const db = admin.firestore(app);
-const storage = admin.storage(app);
+const bucket = admin.storage(app).bucket();
 
-export { db, storage };
+export { db, bucket };

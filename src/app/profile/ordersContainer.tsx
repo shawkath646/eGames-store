@@ -42,22 +42,22 @@ export default async function OrdersContainer() {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th className="py-2 pr-4 text-left text-gray-400">Price</th>
+                                        <th className="py-2 pr-2 text-left text-gray-400">Price</th>
                                         <td className="py-2 px-2 text-gray-400">:</td>
                                         <td className="py-2 px-2 text-gray-200">৳{item.price}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-2 pr-4 text-left text-gray-400">Product Type</th>
+                                        <th className="py-2 pr-2 text-left text-gray-400">Product Type</th>
                                         <td className="py-2 px-2 text-gray-400">:</td>
                                         <td className="py-2 px-2 text-gray-200 capitalize">{item.productType}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-2 pr-4 text-left text-gray-400">Ordered At</th>
+                                        <th className="py-2 pr-2 text-left text-gray-400">Ordered At</th>
                                         <td className="py-2 px-2 text-gray-400">:</td>
                                         <td className="py-2 px-2 text-gray-200">{moment(item.timestamp).format('MMMM Do YYYY, h:mm:ss a')}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-2 pr-4 text-left text-gray-400">Payment Method</th>
+                                        <th className="py-2 pr-2 text-left text-gray-400 whitespace-nowrap">Payment Method</th>
                                         <td className="py-2 px-2 text-gray-400">:</td>
                                         <td className="py-2 px-2 text-gray-200 capitalize">{item.paymentMethod}</td>
                                     </tr>

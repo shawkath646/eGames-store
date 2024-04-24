@@ -1,5 +1,5 @@
 "use server";
-import { revalidateTag, revalidatePath } from 'next/cache'
+import { revalidateTag, revalidatePath } from 'next/cache';
 import { auth } from "@/app/auth";
 import { v4 as uuidv4 } from 'uuid';
 import { db } from "@/config/firebase.config";
