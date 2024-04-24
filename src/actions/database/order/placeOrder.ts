@@ -5,7 +5,7 @@ import moment from "moment";
 import { v4 as uuidv4 } from 'uuid';
 import setNotification from "@/actions/database/notification/setNotification";
 import timeStampToDate from "@/utils/timestampToDate";
-import { OrderItemType, OrderBoxFormType, PackagesType, VoucherItemData } from "@/types/types";
+import { OrderItemType, OrderBoxFormType, PackagesType, VoucherItemType } from "@/types/types";
 
 
 const placeOrder = async (orderData: OrderBoxFormType) => {
@@ -40,7 +40,7 @@ const placeOrder = async (orderData: OrderBoxFormType) => {
             voucherCode: "Invalid voucher code provided."
         };
 
-        const voucherData = voucherSnapshot.docs[0].data() as VoucherItemData;
+        const voucherData = voucherSnapshot.docs[0].data() as VoucherItemType;
 
         if (voucherData.isUsed) return {
             status: false,

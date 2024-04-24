@@ -1,9 +1,10 @@
 import Image from "next/image";
 import GalleryImageUploader from "./GalleryImageUploader";
+import ImageRemoveButton from "./imageRemoveButton";
 import getSiteData from "@/actions/database/getSiteData";
 import bannerImageUpload from "@/actions/database/admin/settings/bannerImageUpload";
-import { IoSettings } from "react-icons/io5";
-import ImageRemoveButton from "./imageRemoveButton";
+import { IoSettings, IoAlertCircle } from "react-icons/io5";
+
 
 export default async function Page() {
 
@@ -32,6 +33,20 @@ export default async function Page() {
 
                 <section className="mt-10">
                     <h2 className="font-medium text-2xl mb-5 text-indigo-500 py-2 px-3 rounded bg-indigo-500/10">Payment Method</h2>
+                    {!!siteData.paymentMethods.length ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                            {siteData.paymentMethods.map((item, index) => (
+                                <article key={index}>
+
+                                </article>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="h-[500px] w-full flex items-center justify-center text-gray-800 space-x-3">
+                            <p className="font-medium text-xl">No payment found</p>
+                            <IoAlertCircle size={24} />
+                        </div>
+                    )}
                 </section>
             </div>
         </main>
