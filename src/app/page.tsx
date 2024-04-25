@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import BannerSection from "@/components/home/bannerSection";
 import GamesContainer from "@/components/home/gamesContainer";
 import PlayCardsContainer from "@/components/home/playcardsContainer";
@@ -6,6 +7,9 @@ import VouchersContainer from "@/components/home/vouchersContainer";
 import getSiteData from "@/actions/database/getSiteData";
 import darkBackground from "@/assets/dark-background.jpg";
 
+export const metadata: Metadata = {
+  title: "Home"
+};
 
 export default async function Home() {
 

@@ -1,14 +1,36 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import getProductData from "@/actions/database/getProductData";
+import { PropsType } from "@/types/types";
 import { CiShoppingTag } from "react-icons/ci";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoAlertCircle } from "react-icons/io5";
 import { IoLogoBuffer } from "react-icons/io5";
 import darkBackground from "@/assets/dark-background.jpg";
 
-export default async function Page({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+export async function generateMetadata(
+    { searchParams }: PropsType,
+): Promise<Metadata> {
+
+    let productType = searchParams.type, productId = searchParams.productId;;
+
+    if (Array.isArray(productType)) productType = productType[0];
+    if (Array.isArray(productId)) productId = productId[0];
+
+    if (!productType || !productId) return {
+        title: "Product not found"
+    }
+
+    const productData = await getProductData(productType, productId);
+
+    return {
+        title: productData?.product.name
+    }
+}
+
+export default async function Page({ searchParams }: PropsType) {
 
     let productType = searchParams.type, productId = searchParams.productId;;
 
@@ -29,7 +51,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
                     <div className="flex justify-center space-x-8 max-w-xl">
                         <div className="bg-gray-800 rounded h-[80px] w-[80px] flex-shrink-0">
                             {product.icon ? (
-                                <Image src={product.icon} alt={`${product.name} icon`} height={80} width={80} />
+                                <Image src={product.icon} alt={`${product.name} icon`} height={80} width={80} className="rounded" />
                             ) : (
                                 <IoLogoBuffer size={60} className="text-gray-500 h-[70px] w-[70px] mx-auto mt-1" />
                             )}
@@ -42,7 +64,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
                             )}
                         </div>
                     </div>
-                    <div className="max-w-xl bg-gray-900 p-3 rounded-lg">
+                    <div className="max-w-xl bg-gray-900 p-5 rounded-lg">
                         <h2 className="text-xl font-medium text-blue-500 mb-2">Requirements:</h2>
                         <p className="text-sm">{product.requirement}</p>
                     </div>

@@ -9,6 +9,7 @@ export default async function NotificationsContainer() {
     return (
         <section className="max-w-lg">
             <h2 className="font-semibold text-3xl mb-4 text-white">Notifications</h2>
+            <div className="overflow-y-scroll max-h-[780px] scrollbar-hide">
             {!!notifications.length ? (
                 notifications.map((item, index) => (
                     <NotificaitonItem key={index} notification={item} />
@@ -19,6 +20,7 @@ export default async function NotificationsContainer() {
                     <IoAlertCircle size={24} />
                 </div>
             )}
+            </div>
         </section>
     );
 }

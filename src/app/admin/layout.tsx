@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import { auth } from "@/app/auth";
 import LockAnimation from "./LockAnimation";
+
+export const metadata: Metadata = {
+    title: "Admin panel"
+};
 
 export default async function Layout({ children }: Readonly<{ children: React.ReactNode; }>) {
     const session = await auth();

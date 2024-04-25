@@ -28,7 +28,6 @@ export default function BannerSection({ bannerImages }: { bannerImages: ImageObj
                         <p className="ml-2 text-lg text-gray-400">Wide Payment Methods Supported</p>
                     </div>
                 </div>
-                <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">Shop Now</button>
             </div>
             <div className="w-full lg:w-[500px] mt-8 lg:mt-0 mx-auto">
                 {!!bannerImages.length && (

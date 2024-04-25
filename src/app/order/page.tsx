@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import OrderBox from "./orderBox";
 import getPackageItem from "@/actions/database/order/getPackageItem";
 import getSiteData from "@/actions/database/getSiteData";
+import { PropsType } from "@/types/types";
 
-export default async function Page({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+export const metadata: Metadata = {
+    title: "Place order"
+};
+
+export default async function Page({ searchParams }: PropsType) {
 
     let productType = searchParams.productType, packageId = searchParams.packageId, docId = searchParams.docId, productName = searchParams.productName;
 

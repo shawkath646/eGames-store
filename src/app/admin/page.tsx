@@ -4,7 +4,6 @@ import getAllCounts from "@/actions/database/admin/getAllCounts";
 import { IoWallet, IoBag, IoPerson, IoSettings } from "react-icons/io5";
 import eGamesStoreIcon from "@/assets/eGames-shop_icon_500x500.png";
 
-
 export default async function Page() {
 
     const allCounts = await getAllCounts();

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { auth } from "@/app/auth";
@@ -8,7 +9,12 @@ import getProfileQuery from "@/actions/database/getProfileQuery";
 import { IoIosSettings } from "react-icons/io";
 import darkBackground from "@/assets/dark-background.jpg";
 
-
+export async function generateMetadata(): Promise<Metadata> {
+    const session = await auth();
+    return {
+        title: `@${session?.user.email?.split("@")[0]}`
+    }
+}
 
 
 export default async function Page() {
