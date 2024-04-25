@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import OrderBox from "./orderBox";
-import getProductPackage from "@/actions/database/order/getProductPackage";
+import getPackageItem from "@/actions/database/order/getPackageItem";
 import getSiteData from "@/actions/database/getSiteData";
 
 export default async function Page({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
@@ -15,7 +15,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
     if (!productType || !packageId || !docId || !productName) redirect("/not-found");
 
     const siteData = await getSiteData();
-    const packageData = await getProductPackage({ productType, packageId, docId });
+    const packageItem = await getPackageItem({ productType, packageId, docId });
 
-    return <OrderBox packageData={packageData} productName={productName} productType={productType} packageId={packageId} docId={docId} paymentMethods={siteData.paymentMethods} />;
+    return <OrderBox packageItem={packageItem} productName={productName} productType={productType} packageId={packageId} docId={docId} paymentMethods={siteData.paymentMethods} />;
 }

@@ -5,8 +5,8 @@ import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import Lottie from 'react-lottie-player';
-import orderBoxSchema from "@/schema/orderBox.schema";
 import placeOrder from "@/actions/database/order/placeOrder";
 import { PackageItemType, OrderBoxFormType, PaymentMethodItemType } from "@/types/types";
 import { ImSpinner8 } from "react-icons/im";
@@ -17,15 +17,15 @@ import darkBackground from "@/assets/dark-background.jpg";
 import orderCompleteAnimation from "@/assets/Animation - 1713765322367.json";
 
 
-export default function OrderBox({ packageData, productType, packageId, docId, productName, paymentMethods }: { productName: string; packageData: PackageItemType; productType: string; packageId: string; docId: string; paymentMethods: PaymentMethodItemType[] }) {
+export default function OrderBox({ packageItem, productType, packageId, docId, productName, paymentMethods }: { productName: string; packageItem: PackageItemType; productType: string; packageId: string; docId: string; paymentMethods: PaymentMethodItemType[] }) {
 
-    const [isOrderComplete, setOrderComplete] = useState(false);
+    const [pageStatus, setPageStatus] = useState<"initial" | "loading" | "completed">("initial");
 
     const {
         register,
         handleSubmit,
         control,
-        formState: { errors, isLoading },
+        formState: { errors },
         setError,
         watch,
     } = useForm<OrderBoxFormType>({
@@ -35,20 +35,42 @@ export default function OrderBox({ packageData, productType, packageId, docId, p
             docId,
             packageId,
         },
-        resolver: yupResolver(orderBoxSchema)
+        resolver: yupResolver(
+            yup.object().shape({
+                productType: yup.string().required("Product type is a required field"),
+                docId: yup.string().required("Doc ID is a required field"),
+                packageId: yup.string().required("Package ID is a required field"),
+                paymentMethod: yup.string().required("Payment method is a required field"),
+                productName: yup.string().required("Product name is a required field"),
+                details: yup.string().required("Details is a required field").min(10, "Details must be at least 10 characters").max(500, "Details cannot exceed 500 characters"),
+                accountLast4Digit: yup.string().when('paymentMethod', (val) => {
+                    if (val[0] === "voucher") return yup.string().notRequired();
+                    return yup.string().required("Last 4 digits of account is a required field").length(4, "Account last 4 digits must be exactly 4.");
+                }),
+                transactionId: yup.string().when('paymentMethod', (val) => {
+                    if (val[0] === "voucher") return yup.string().notRequired();
+                    return yup.string().required("Transaction ID is a required field").min(3, "Transaction ID must be at least 3 characters").max(100, "Transaction ID cannot exceed 100 characters")
+                }),
+                voucherCode: yup.string().when('paymentMethod', (val) => {
+                    if (val[0] === "voucher") return yup.string().required("Voucher code is a required field").length(12, "Voucher code must be exactly 12 characters.");
+                    return yup.string().notRequired();
+                }),
+              })
+        )
     });
 
     const onSubmit: SubmitHandler<OrderBoxFormType> = async (data) => {
+        setPageStatus("loading");
         const response = await placeOrder(data);
         if ("transactionId" in response) setError("transactionId", { message: response.transactionId });
         if ("voucherCode" in response) setError("voucherCode", { message: response.voucherCode });
-        setOrderComplete(response.status);
+        setPageStatus(response.status ? "completed" : "initial");
     };
 
     return (
         <main style={{ backgroundImage: `url(${darkBackground.src})` }} className="w-full text-white bg-gray-900 bg-cover bg-center bg-fixed">
             <div className="container mx-auto flex justify-center pt-28 pb-20 lg:pb-40 lg:pt-48 gap-5 px-5 lg:px-0">
-                {isOrderComplete ? (
+                {pageStatus === "completed" ? (
                     <div className="w-full max-w-md md:max-w-lg mx-auto rounded-lg shadow-lg bg-gradient-to-br from-gray-900 to-gray-800 p-6 md:p-8 flex flex-col items-center justify-center mt-10 md:mt-20 lg:mt-32">
                         <Lottie
                             animationData={orderCompleteAnimation}
@@ -64,8 +86,8 @@ export default function OrderBox({ packageData, productType, packageId, docId, p
                 ) : (
                     <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-800 text-gray-200 p-8 rounded-lg w-full lg:max-w-xl shadow-lg">
                         <h2 className="text-3xl font-semibold mb-4">Place Order</h2>
-                        <p className="text-lg font-medium">{productName} - {packageData.title}</p>
-                        <p className="text-lg mb-10">Price: <span className="text-blue-300">৳{packageData.price}</span></p>
+                        <p className="text-lg font-medium">{productName} - {packageItem.title}</p>
+                        <p className="text-lg mb-10">Price: <span className="text-blue-300">৳{packageItem.price}</span></p>
                         <Controller
                             name="paymentMethod"
                             control={control}
@@ -119,7 +141,7 @@ export default function OrderBox({ packageData, productType, packageId, docId, p
                                 </ul>
                                 <ol className="list-decimal pl-6 my-4">
                                     <li>Use "send money" option for every payment method</li>
-                                    <li>Send exactly <span className="text-blue-300">৳{packageData.price}</span></li>
+                                    <li>Send exactly <span className="text-blue-300">৳{packageItem.price}</span></li>
                                 </ol>
                                 <p className="text-sm text-gray-400 mb-4">Note: Mobile recharge is not acceptable. If you accidentally recharge your mobile, we cannot refund the amount.</p>
                                 <div className="mb-2">
@@ -139,13 +161,13 @@ export default function OrderBox({ packageData, productType, packageId, docId, p
                             <textarea {...register("details")} rows={6} placeholder="Provide information of your account mentioned in previous page..." aria-invalid={!!errors.details} className="w-full bg-gray-700 text-gray-200 px-4 py-2 rounded-lg outline-none aria-invalid:border aria-invalid:border-red-500 resize-none" />
                             <p className="text-xs text-red-500 mt-1">{errors.details?.message}</p>
                         </div>
-                        <button type="submit" disabled={isLoading} className="bg-blue-500 text-white px-6 py-2 disabled:bg-gray-500 rounded-lg hover:bg-blue-600 transition-colors duration-300 flex items-center justify-center space-x-2">
-                            {isLoading ? (
+                        <button type="submit" disabled={pageStatus === "loading"} className="bg-blue-500 text-white px-6 py-2 disabled:bg-gray-500 rounded-lg hover:bg-blue-600 transition-colors duration-300 flex items-center justify-center space-x-2">
+                            {(pageStatus === "loading") ? (
                                 <ImSpinner8 size={16} className="animate-spin" />
                             ) : (
                                 <FaCartPlus size={16} />
                             )}
-                            <p>{isLoading ? "Please wait..." : "Confirm Order"}</p>
+                            <p>{(pageStatus === "loading") ? "Please wait..." : "Confirm Order"}</p>
                         </button>
                     </form>
                 )}

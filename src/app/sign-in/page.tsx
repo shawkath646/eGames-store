@@ -3,7 +3,7 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import signInSchema from "@/schema/signin.schema";
+import * as yup from "yup";
 import userSignIn from "@/actions/userSignIn";
 import { FaLock, FaGoogle } from "react-icons/fa";
 import darkBackground from "@/assets/dark-background.jpg";
@@ -23,7 +23,13 @@ export default function Page() {
         defaultValues: {
             showPassword: false
         },
-        resolver: yupResolver(signInSchema)
+        resolver: yupResolver(
+            yup.object().shape({
+                emailAddress: yup.string().required("Email is required field").email("Invalid email provided"),
+                password: yup.string().required("Password is required field").min(8, "Minimum 8 characters required").max(32, "Password can't exceed 32 characters."),
+                showPassword: yup.boolean().defined(),
+            })
+        )
     });
 
     const onSubmit: SubmitHandler<SignInFormType> = (data) => {
