@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import SHAS from "shas-app-controller";
 import Navbar from "@/components/navigation/navbar";
 import Footer from "@/components/navigation/footer";
@@ -41,6 +42,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           {children}
           <Footer />
         </ContentWrapper>
+        <Analytics />
       </body>
     </html>
   );
