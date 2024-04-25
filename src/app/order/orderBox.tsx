@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Lottie from 'react-lottie-player';
 import orderBoxSchema from "@/schema/orderBox.schema";
 import placeOrder from "@/actions/database/order/placeOrder";
-import { PackagesType, OrderBoxFormType, PaymentMethodItemType } from "@/types/types";
+import { PackageItemType, OrderBoxFormType, PaymentMethodItemType } from "@/types/types";
 import { ImSpinner8 } from "react-icons/im";
 import { FaCartPlus } from "react-icons/fa6";
 import { IoWallet } from "react-icons/io5";
@@ -17,7 +17,7 @@ import darkBackground from "@/assets/dark-background.jpg";
 import orderCompleteAnimation from "@/assets/Animation - 1713765322367.json";
 
 
-export default function OrderBox({ packageData, productType, packageId, docId, productName, paymentMethods }: { productName: string; packageData: PackagesType; productType: string; packageId: string; docId: string; paymentMethods: PaymentMethodItemType[] }) {
+export default function OrderBox({ packageData, productType, packageId, docId, productName, paymentMethods }: { productName: string; packageData: PackageItemType; productType: string; packageId: string; docId: string; paymentMethods: PaymentMethodItemType[] }) {
 
     const [isOrderComplete, setOrderComplete] = useState(false);
 

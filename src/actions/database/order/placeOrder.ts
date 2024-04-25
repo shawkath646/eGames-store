@@ -5,7 +5,7 @@ import moment from "moment";
 import { v4 as uuidv4 } from 'uuid';
 import setNotification from "@/actions/database/notification/setNotification";
 import timeStampToDate from "@/utils/timestampToDate";
-import { OrderItemType, OrderBoxFormType, PackagesType, VoucherItemType } from "@/types/types";
+import { OrderItemType, OrderBoxFormType, PackageItemType, VoucherItemType } from "@/types/types";
 
 
 const placeOrder = async (orderData: OrderBoxFormType) => {
@@ -18,7 +18,7 @@ const placeOrder = async (orderData: OrderBoxFormType) => {
     let orderStatus: OrderItemType["status"] = "pending";
 
     const packageDoc = await db.collection(orderData.productType).doc(orderData.docId).collection("packages").doc(orderData.packageId).get();
-    const packageData = packageDoc.data() as PackagesType;
+    const packageData = packageDoc.data() as PackageItemType;
 
     if (orderData.transactionId) {
         const transictionIdQuery = await db.collection("orders").where("transactionId", "==", orderData.transactionId).get();

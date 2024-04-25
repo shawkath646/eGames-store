@@ -15,7 +15,7 @@ const getSelfOrderItems = cache(async() => {
         const orderItem = doc.data() as OrderItemType;
         orderItem.timestamp = timeStampToDate(orderItem.timestamp);
         return orderItem;
-    })
+    });
 });
 
 export default getSelfOrderItems;

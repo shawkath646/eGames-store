@@ -20,7 +20,7 @@ export default async function GamesContainer() {
                     {gameItems.map((item, index) => (
                         <article key={index} className="flex flex-col items-center justify-center bg-gray-900 border rounded-lg border-gray-700 hover:shadow-lg transition duration-300 py-3">
                             {item.icon ? (
-                                <Image src={item.icon} alt={`${item.name} icon`} height={110} width={110} className="h-[110px] w-[110px] rounded-lg" />
+                                <Image src={item.icon} alt={`${item.name} icon`} height={75} width={75} className="h-[75px] w-[75px] rounded-lg" />
                             ) : (
                                 <IoLogoGameControllerB size={60} className="text-gray-600" />
                             )}

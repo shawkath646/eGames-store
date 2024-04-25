@@ -1,3 +1,5 @@
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+export type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 export interface TimestampFieldValue {
     _seconds: number;
@@ -10,6 +12,7 @@ export interface ItemType {
     icon: string;
     description: string;
     website: string;
+    requirement: string;
 }
 
 export interface UserDataType {
@@ -36,11 +39,12 @@ export interface NotificationItemType {
     isRead: boolean;
 }
 
-export interface PackagesType {
+export interface PackageItemType {
     price: number;
     title: string;
     icon: string;
     id: string;
+    description: string;
 }
 
 export interface OrderItemType {
@@ -75,11 +79,6 @@ export interface OrderBoxFormType {
 export interface FetchedNotificationQuery {
     notifications: NotificationItemType[];
     unreadNotificationNumber: number;
-}
-
-
-export interface SiteDataType {
-    bannerImages: ImageObjectType[];
 }
 
 export interface SignInFormType {
